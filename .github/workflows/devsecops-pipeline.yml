@@ -33,41 +33,6 @@ jobs:
     runs-ons: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Pipeline DevSecOps End-to-End
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    
-    branches: [ "main" ]
-
-permissions:
-  contents: read
-  packages: write
-  id-token: write # Requerido para firma criptograficas Keyles con Sigstore/Cosign via OIDC
-
-jobs
-  # 1. SECRET SCANNING
-  secret-scanning:
-    name: 1. Secret Scanning (Gitleaks)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-        name: Gitleaks Scan
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
-
-  #2. SAST (Analisis Estatico de Codigo)
-  sast:
-    name: 2. SAST (Semgrep)
-    needs: secret-scanning
-    runs-ons: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
       - name: Ejecutar Semgrep
         run: |
           docker run --rm -v "${{ github.workspace }}:/src" returntocorp/semgrep semgrep scan --config auto --error
