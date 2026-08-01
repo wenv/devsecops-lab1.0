@@ -12,7 +12,7 @@ permissions:
   packages: write
   id-token: write # Requerido para firma criptograficas Keyles con Sigstore/Cosign via OIDC
 
-jobs
+jobs:
   # 1. SECRET SCANNING
   secret-scanning:
     name: 1. Secret Scanning (Gitleaks)
