@@ -31,10 +31,9 @@ jobs:
     name: 2. SAST (Semgrep)
     needs: secret-scanning
     runs-ons: ubuntu-latest
-    steps
+    steps:
       - uses: actions/checkout@v4
-cat << 'EOF' > .github/workflows/devsecops-pipeline.yml
-name: Pipeline DevSecOps End-to-End
+      - name: Pipeline DevSecOps End-to-End
 
 on:
   push:
@@ -67,7 +66,7 @@ jobs
     name: 2. SAST (Semgrep)
     needs: secret-scanning
     runs-ons: ubuntu-latest
-    steps
+    steps:
       - uses: actions/checkout@v4
       - name: Ejecutar Semgrep
         run: |
