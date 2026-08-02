@@ -97,6 +97,7 @@ jobs:
           context: .
           load: true
           tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
       - name: Generar SBOM con Syft
         uses: anchore/sbom-action@v0
@@ -117,7 +118,7 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-	  labels: ${{ steps.meta.outputs.labels }}
+          labels: ${{ steps.meta.outputs.labels }}
 
       - name: Escaneo de Imagen Docker con Trivy
         uses: aquasecurity/trivy-action@master
