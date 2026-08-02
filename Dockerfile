@@ -1,13 +1,12 @@
 # CORRECCIÓN CONTENEDOR: Imagen base moderna y actualizada
-FROM python:3.11-slim
+FROM python:3.11-alpine
 
-RUN echo "Cache-Break: 2026-08-02" && apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
-
+RUN apk update && apk upgrade --no-cache
 
 WORKDIR /app
 
 # Crear usuario no privilegiado
-RUN useradd -m appuser
+RUN useradd -D appuser
 
 COPY app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
