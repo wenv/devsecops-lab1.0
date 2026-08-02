@@ -14,10 +14,13 @@ resource "aws_s3_bucket_public_access_block" "publico" {
   restrict_public_buckets = true
 }
 
-# checkov:skip=CKV2_AWS_5:Saltado temporalmente para pruebas de laboratorio sin EC2
+# Creamos una VPC por defecto para asociar el grupo de seguridad formalmente
+resource "aws_default_vpc" "default" {}
+
 resource "aws_security_group" "sg_seguro" {
   name        = "sg_ssh_restringido"
   description = "Grupo de seguridad restringido para lab"
+  vpc_id      = aws_default_vpc.default.id # <--- Esto lo asocia a la VPC
 
   ingress {
     from_port   = 22
@@ -25,6 +28,13 @@ resource "aws_security_group" "sg_seguro" {
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
   }
-}
 
+  # Añadimos la regla de salida que Checkov siempre busca
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 
