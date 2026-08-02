@@ -25,3 +25,7 @@ resource "aws_security_group" "sg_seguro" {
     cidr_blocks = ["10.0.0.0/16"]
   }
 }
+
+vpc_security_group_ids = [aws_security_group.sg_seguro.id]
+
+
