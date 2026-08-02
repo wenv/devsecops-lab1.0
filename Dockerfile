@@ -8,10 +8,10 @@ WORKDIR /app
 # Crear usuario no privilegiado
 RUN useradd -m appuser
 
-COPY requirements.txt .
+COPY app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app/ /app/
+COPY app/ .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Cambiar a usuario no-root
