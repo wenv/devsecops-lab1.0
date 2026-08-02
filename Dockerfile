@@ -6,7 +6,7 @@ RUN apk update && apk upgrade --no-cache
 WORKDIR /app
 
 # Crear usuario no privilegiado
-RUN useradd -D appuser
+RUN adduser -D appuser
 
 COPY app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
