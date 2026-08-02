@@ -14,23 +14,17 @@ resource "aws_s3_bucket_public_access_block" "publico" {
   restrict_public_buckets = true
 }
 
+
+# checkov:skip=CKV2_AWS_5: Saltado temporalmente para pruebas de laboratorio sin EC2
 resource "aws_security_group" "sg_seguro" {
   name        = "sg_ssh_restringido"
   description = "Grupo de seguridad restringido para lab"
-
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
   }
-}
-
-# checkov:skip=CKV2_AWS_5: Saltado temporalmente para pruebas de laboratorio sin EC2
-resource "aws_security_group" "sg_seguro" {
-  name        = "sg_ssh_restringido"
-  description = "Grupo de seguridad restringido para lab"
-  # ... resto de tu configuración ...
 }
 
 
