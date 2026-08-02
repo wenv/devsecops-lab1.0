@@ -117,6 +117,7 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+	  labels: ${{ steps.meta.outputs.labels }}
 
       - name: Escaneo de Imagen Docker con Trivy
         uses: aquasecurity/trivy-action@master
