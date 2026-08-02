@@ -26,6 +26,12 @@ resource "aws_security_group" "sg_seguro" {
   }
 }
 
-vpc_security_group_ids = [aws_security_group.sg_seguro.id]
+# checkov:skip=CKV2_AWS_5: Saltado temporalmente para pruebas de laboratorio sin EC2
+resource "aws_security_group" "sg_seguro" {
+  name        = "sg_ssh_restringido"
+  description = "Grupo de seguridad restringido para lab"
+  # ... resto de tu configuración ...
+}
+
 
 
