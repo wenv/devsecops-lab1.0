@@ -111,6 +111,13 @@ jobs:
           name: sbom-cyclonedx
           path: sbom.cyclonedx.json
 
+      - name: Publicar Imagen en GHCR
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+
       - name: Escaneo de Imagen Docker con Trivy
         uses: aquasecurity/trivy-action@master
         with:
@@ -118,12 +125,7 @@ jobs:
           severity: 'CRITICAL'
           exit-code: '1'
 
-      - name: Publicar Imagen en GHCR
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
+     
 
   # 6. FIRMA CRIPTOGRÁFICA DE CONTENEDORES
   sign-container:
