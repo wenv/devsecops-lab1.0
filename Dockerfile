@@ -1,7 +1,8 @@
 # CORRECCIÓN CONTENEDOR: Imagen base moderna y actualizada
 FROM python:3.11-slim
 
-RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+RUN echo "Cache-Break: 2026-08-02" && apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+
 
 WORKDIR /app
 
